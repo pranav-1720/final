@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.d18e7c78.css","mappings":"AAAC,QAKG,WAAY,CAHZ,WAAW,CACX,YAAY,CACZ,iBAEH","sources":["app.css"],"sourcesContent":[" #Button{\n    /* background-color: black; */\n    margin:auto;\n    padding:auto;\n    text-align:center;\n    size: larger;\n }"],"names":[],"sourceRoot":""}
