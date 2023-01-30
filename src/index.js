@@ -15,145 +15,27 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import './app.css'
-import {
-  FirstName,
-  LastName,
-  UserName,
-  Email,
-  Age,
-  ContactNumber,
-  Password
-} from './fields.js'
-import { Submit } from './buttons.js'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { MyApp } from './routes/root.js'
+import ErrorPage from './error-page.js'
+import { Profile } from './routes/profile.js'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { AuthProvider } from 'react-auth-kit'
+import Auth from './auth'
+import Login from './routes/login'
+// import './app.css'
+// import {
+//   FirstName,
+//   LastName,
+//   UserName,
+//   Email,
+//   Age,
+//   ContactNumber,
+//   Password
+// } from '../fields.js'
+// import { Submit } from '../buttons.js'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // npm
-
-const theme = createTheme({
-  status: {
-    danger: '#e53e3e'
-  },
-  palette: {
-    primary: {
-      main: '#0971f1',
-      darker: '#053e85'
-    },
-    neutral: {
-      main: '#64748B',
-      contrastText: '#fff'
-    }
-  }
-})
-
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary
-}))
-
-class MyApp extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      Login: true
-    }
-  }
-  login_click () {
-    this.setState({
-      Login: true
-    })
-  }
-  sign_in_click () {
-    this.setState({
-      Login: false
-    })
-  }
-  render () {
-    if (this.state.Login) {
-      return (
-        <ThemeProvider theme={theme}>
-          <Container>
-            <Grid container spacing={2}>
-              <Grid Item xs={3}></Grid>
-              <Grid item xs={3}>
-                <div id='Button'>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={() => this.login_click()}
-                  >
-                    Login
-                  </Button>
-                </div>
-              </Grid>
-              <Grid item xs={3}>
-                <div id='Button'>
-                  <Button
-                    variant='contained'
-                    color='neutral'
-                    onClick={() => this.sign_in_click()}
-                  >
-                    Sign-in
-                  </Button>
-                </div>
-              </Grid>
-              <Grid Item xs={3}></Grid>
-            </Grid>
-            <Stack spacing={2}>
-              <UserName />
-              <Password />
-              <Submit />
-            </Stack>
-          </Container>
-        </ThemeProvider>
-      )
-    } else {
-      return (
-        <ThemeProvider theme={theme}>
-          <Container>
-            <Grid container spacing={2}>
-              <Grid Item xs={3}></Grid>
-              <Grid item xs={3}>
-                <div id='Button'>
-                  <Button
-                    variant='contained'
-                    color='neutral'
-                    onClick={() => this.login_click()}
-                  >
-                    Login
-                  </Button>
-                </div>
-              </Grid>
-              <Grid item xs={3}>
-                <div id='Button'>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={() => this.sign_in_click()}
-                  >
-                    Sign-in
-                  </Button>
-                </div>
-              </Grid>
-              <Grid Item xs={3}></Grid>
-              <Grid Item xs={12}></Grid>
-            </Grid>
-            <Stack spacing={2}>
-              <FirstName />
-              <LastName />
-              <UserName />
-              <Email />
-              <Age />
-              <ContactNumber />
-              <Password />
-              <Submit />
-            </Stack>
-          </Container>
-        </ThemeProvider>
-      )
-    }
-  }
-}
 
 // export default function MyApp() {
 //   const handleSubmit = (event) => {
@@ -236,6 +118,29 @@ class MyApp extends React.Component {
 //   );
 // }
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MyApp />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: '/profile',
+    element: <Profile />
+  }
+])
+
 //----------------------------------------------------------------
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<MyApp />)
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element=<MyApp /> errorElement=<ErrorPage /> />
+        <Route path='/' element={<Auth />}>
+          <Route path='/profile' element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>
+)
