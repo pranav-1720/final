@@ -136,8 +136,12 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element=<MyApp /> errorElement=<ErrorPage /> />
-        <Route path='/' element={<Auth />}>
+        <Route
+          path='https://pranav-1720.github.io/'
+          element=<MyApp />
+          errorElement=<ErrorPage />
+        />
+        <Route path='https://pranav-1720.github.io/' element={<Auth />}>
           <Route path='/profile' element={<Profile />} />
         </Route>
       </Routes>
